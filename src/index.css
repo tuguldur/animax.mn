@@ -1,0 +1,16 @@
+:root {
+  --mdc-theme-primary: #000;
+  --mdc-theme-on-primary: #fff;
+}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+@import url("~@material/icon-button/dist/mdc.icon-button.min.css");
+@import url("~@material/menu-surface/dist/mdc.menu-surface.min.css");
+@import url("~@material/list/dist/mdc.list.min.css");
+body {
+  margin: 0;
+  font-family: Roboto, "Segoe UI", Tahoma, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #202124;
+  color: #9aa0a6;
+}
