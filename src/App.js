@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
-        <Route path="/:id" component={Result} />
+        <Route path={process.env.PUBLIC_URL + "/:id"} component={Result} />
       </Switch>
     </Router>
   );

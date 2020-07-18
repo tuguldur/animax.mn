@@ -32,7 +32,7 @@ const Header = () => {
     <div id="header" className={`${show ? "show-search" : ""}`}>
       <div className="left">
         <div className="left-spacer">
-          <Link to="/">
+          <Link to={process.env.PUBLIC_URL + "/"}>
             <h1>Animax Downloader</h1>
           </Link>
         </div>
