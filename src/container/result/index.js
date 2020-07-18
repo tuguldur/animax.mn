@@ -1,10 +1,41 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MDCMenuSurface } from "@material/menu-surface";
+import { MDCRipple } from "@material/ripple";
 import "./index.scss";
-import Search from "../../context/search";
-const Result = () => {
-  const { search } = useContext(Search);
+const Result = (props) => {
+  const [search, setSearch] = useState("loading");
+  let headers = new Headers({
+    Accept: "application/json",
+    "Content-Type": "application/json",
+    "User-Agent":
+      "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
+  });
+  const options = {
+    method: "GET",
+    headers: headers,
+  };
   useEffect(() => {
+    setSearch("loading");
+    var id = props.match.params.id;
+    console.log(id);
+    const anime = `https://animax.mn/api/m/anime/detail/${id}`;
+    const episode = `https://animax.mn/api/m/episodes/${id}`;
+    fetch(anime, options)
+      .then((response) => response.json())
+      .then((data) => {
+        var title = data.title;
+        setSearch({ title });
+        fetch(episode, options)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(search);
+            setSearch({ title, episode: data });
+          });
+      });
+  }, [props.match.params.id]);
+  useEffect(() => {
+    const icons = document.querySelectorAll(".mdc-icon-button");
+    icons.forEach((icon) => (new MDCRipple(icon).unbounded = true));
     const menuEls = Array.from(document.querySelectorAll(".mdc-menu-surface"));
     menuEls.forEach((menuEl) => {
       const menu = new MDCMenuSurface(menuEl);
@@ -33,7 +64,7 @@ const Result = () => {
                 return (
                   <div className="item-container" key={episode.id}>
                     <div className="episode-title">
-                      <strong>{episode.number}.</strong> {episode.title}
+                      {episode.number}-р анги {episode.title}
                     </div>
                     <div className="episode-action">
                       <div className="mdc-menu-surface--anchor">
@@ -41,7 +72,7 @@ const Result = () => {
                           type="button"
                           className="mdc-icon-button material-icons download-dropdown"
                         >
-                          more_vert
+                          play_arrow
                         </button>
                         <div className="mdc-menu-surface">
                           <div className="mdc-list">

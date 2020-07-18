@@ -5,7 +5,7 @@
   background: #292a2d;
   flex: 1;
   box-sizing: border-box;
-  padding: 8px 0;
+  padding: 8px 10px;
   .left {
     @media (min-width: 1124px) {
       position: relative;
@@ -17,7 +17,6 @@
       align-items: center;
       box-sizing: border-box;
       display: flex;
-      padding-inline-start: calc(12px + 6px);
       width: auto;
       h1 {
         flex: 1;
@@ -54,6 +53,64 @@
         .clear-button {
           visibility: unset;
           display: inline-block;
+        }
+        .suggestions {
+          .loading {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          width: 100%;
+          right: 0;
+          left: 0;
+          display: flex;
+          position: absolute;
+          top: 56px;
+          height: calc(100% - 56px);
+          max-height: calc(100% - 56px);
+          background: rgb(41, 42, 45);
+          @media (min-width: 1124px) {
+            &.h-auto {
+              height: auto;
+              max-height: unset;
+            }
+            height: 400px;
+            max-height: 400px;
+            max-width: 680px;
+            margin: 0 auto;
+            top: 48px;
+          }
+        }
+      }
+      .suggestions {
+        z-index: 1;
+        display: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        .preview {
+          width: 100%;
+          .preview-item {
+            padding: 0.4rem 50px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            &:last-child {
+              border-bottom: none;
+            }
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+            a {
+              display: block;
+              line-height: normal;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              color: white;
+              font-size: 12px;
+              line-height: 28px;
+              text-decoration: none;
+            }
+          }
         }
       }
       .mdc-icon-button {

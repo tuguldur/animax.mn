@@ -1,15 +1,15 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
 import { Header } from "./component";
 import { Result } from "./container";
-import User from "./context/search";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = () => {
-  const [search, setSearch] = useState(null);
-  const value = useMemo(() => ({ search, setSearch }), [search, setSearch]);
   return (
-    <User.Provider value={value}>
+    <Router>
       <Header />
-      <Result />
-    </User.Provider>
+      <Switch>
+        <Route path="/:id" component={Result} />
+      </Switch>
+    </Router>
   );
 };
 
