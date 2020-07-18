@@ -83,7 +83,7 @@ const Header = () => {
                 suggestions.map((suggestion) => (
                   <div className="preview-item" key={suggestion.id}>
                     <Link
-                      to={`/${suggestion.id}`}
+                      to={`${process.env.PUBLIC_URL}/${suggestion.id}`}
                       onClick={(_) => setValue("")}
                     >
                       {suggestion.title}
