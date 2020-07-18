@@ -59,7 +59,7 @@ const Header = () => {
             <input
               id="searchInput"
               aria-labelledby="prompt"
-              type="url"
+              type="text"
               onChange={change}
               value={value}
               autoFocus=""
