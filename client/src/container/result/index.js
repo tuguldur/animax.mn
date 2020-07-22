@@ -4,28 +4,19 @@ import { MDCRipple } from "@material/ripple";
 import "./index.scss";
 const Result = (props) => {
   const [search, setSearch] = useState("loading");
-  let headers = new Headers({
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    "User-Agent":
-      "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-  });
   const options = {
     method: "GET",
-    headers: headers,
   };
   useEffect(() => {
     setSearch("loading");
     var id = props.match.params.id;
     console.log(id);
-    const anime = `https://animax.mn/api/m/anime/detail/${id}`;
-    const episode = `https://animax.mn/api/m/episodes/${id}`;
-    fetch(anime, options)
+    fetch("/api/proxy/detail/" + id, options)
       .then((response) => response.json())
       .then((data) => {
         var title = data.title;
         setSearch({ title });
-        fetch(episode, options)
+        fetch("/api/proxy/episodes/" + id, options)
           .then((response) => response.json())
           .then((data) => {
             console.log(search);

@@ -3,26 +3,17 @@ import { Link } from "react-router-dom";
 import { MDCRipple } from "@material/ripple";
 import "./index.scss";
 const Header = () => {
-  let headers = new Headers({
-    Accept: "application/json",
-    "Content-Type": "application/json",
-    "User-Agent":
-      "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-  });
-  const options = {
-    method: "GET",
-    headers: headers,
-  };
   const [value, setValue] = useState("");
   const [show, setShow] = useState(false);
   const [suggestions, setSuggestions] = useState(null);
   const change = (e) => {
     setSuggestions(null);
     setValue(e.target.value);
-    var search = `https://animax.mn/api/search?q=${e.target.value}`;
-    fetch(search, options)
-      .then((response) => response.json())
-      .then((data) => setSuggestions(data));
+    if (e.target.value)
+      fetch(`/api/proxy/search?q=${e.target.value}`)
+        .then((response) => response.json())
+        .then((data) => setSuggestions(data));
+    else setSuggestions(null);
   };
   useEffect(() => {
     const icons = document.querySelectorAll(".mdc-icon-button");
@@ -32,7 +23,7 @@ const Header = () => {
     <div id="header" className={`${show ? "show-search" : ""}`}>
       <div className="left">
         <div className="left-spacer">
-          <Link to={process.env.PUBLIC_URL + "/"}>
+          <Link to="/">
             <h1>Animax Downloader</h1>
           </Link>
         </div>
@@ -83,7 +74,7 @@ const Header = () => {
                 suggestions.map((suggestion) => (
                   <div className="preview-item" key={suggestion.id}>
                     <Link
-                      to={`${process.env.PUBLIC_URL}/${suggestion.id}`}
+                      to={`/anime/${suggestion.id}`}
                       onClick={(_) => setValue("")}
                     >
                       {suggestion.title}
