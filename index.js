@@ -13,5 +13,5 @@ process.env.DEV == "false" &&
     res.sendFile(path.join(__dirname + "/client/build/index.html"))
   );
 app.listen(process.env.PORT || 5000, () =>
-  console.log(`amarbat: ${process.env.PORT}`)
+  console.log(`amarbat: ${process.env.PORT}, ${process.env.DEV}`)
 );
