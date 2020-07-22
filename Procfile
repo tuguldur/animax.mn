@@ -1,1 +1,1 @@
-web: PORT=5000 DEV=false node index.js
+web: DEV=false node index.js
