@@ -16,6 +16,7 @@ const Episode = (props) => {
           .then((response) => response.json())
           .then((data) => {
             console.log(episode);
+            setVideo(data.vid2);
             setEpisode({ title, video: data });
           });
       });
@@ -23,7 +24,14 @@ const Episode = (props) => {
   useEffect(() => {
     const icons = document.querySelectorAll(".mdc-icon-button");
     icons.forEach((icon) => (new MDCRipple(icon).unbounded = true));
-  }, [episode]);
+  }, [episode, video]);
+  const VideoPlayer = ({ url }) => {
+    return (
+      <video controls className="video" key={url}>
+        <source src={url} type="video/mp4" />
+      </video>
+    );
+  };
   return (
     <div className="list episode">
       {episode ? (
@@ -59,12 +67,7 @@ const Episode = (props) => {
           <div className="episode-container">
             {episode.video ? (
               <div className="video-container">
-                <video controls className="video">
-                  <source
-                    src={video ? video : episode.video.vid2}
-                    type="video/mp4"
-                  />
-                </video>
+                <VideoPlayer url={video} />
               </div>
             ) : (
               <div className="loading">
