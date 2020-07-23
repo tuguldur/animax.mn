@@ -23,6 +23,15 @@ exports.detail = (req, res) => {
     .then((response) => res.json(response.data))
     .catch((err) => console.log("UwU"));
 };
+exports.episode = (req, res) => {
+  const { id } = req.params;
+  const anime = `https://animax.mn/api/m/episode/${id}`;
+  axios
+    .get(anime)
+    .then((response) => res.json(response.data))
+    .catch((err) => console.log("UwU"));
+  //
+};
 exports.latest = (req, res) => {
   axios
     .get("https://animax.mn/api/m/latest/anime")

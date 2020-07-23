@@ -6,6 +6,7 @@ const proxy = require("../controllers/proxy");
  */
 router.get("/search", proxy.search);
 router.get("/detail/:id", proxy.detail);
+router.get("/episode/:id", proxy.episode);
 router.get("/episodes/:id", proxy.episodes);
 
 module.exports = router;

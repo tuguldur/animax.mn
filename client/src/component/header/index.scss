@@ -22,7 +22,7 @@
         text-decoration: none;
         &:hover {
           h1 {
-            color: rgba(255, 255, 255, 0.1);
+            text-decoration: underline;
           }
         }
       }
@@ -106,6 +106,12 @@
             }
             &:hover {
               background-color: rgba(255, 255, 255, 0.1);
+              @media (min-width: 1124px) {
+                &:last-child {
+                  border-bottom-left-radius: 8px;
+                  border-bottom-right-radius: 8px;
+                }
+              }
             }
             a {
               display: block;

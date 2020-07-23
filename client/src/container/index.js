@@ -1,2 +1,3 @@
 import Result from "./result";
-export { Result };
+import Episode from "./episode";
+export { Result, Episode };

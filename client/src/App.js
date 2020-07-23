@@ -1,6 +1,6 @@
 import React from "react";
 import { Header } from "./component";
-import { Result } from "./container";
+import { Result, Episode } from "./container";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,7 @@ const App = () => {
     <Router>
       <Header />
       <Switch>
+        <Route path={"/anime/:id/episode/:id"} component={Episode} />
         <Route path={"/anime/:id"} component={Result} />
         <Redirect to="/" />
       </Switch>

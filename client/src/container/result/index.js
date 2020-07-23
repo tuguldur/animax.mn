@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MDCMenuSurface } from "@material/menu-surface";
 import { MDCRipple } from "@material/ripple";
+import { Link } from "react-router-dom";
 import "./index.scss";
 const Result = (props) => {
   const [search, setSearch] = useState("loading");
@@ -33,7 +34,8 @@ const Result = (props) => {
       const dropdownToggle = menuEl.parentElement.querySelector(
         ".download-dropdown"
       );
-      dropdownToggle.addEventListener("click", () => {
+      dropdownToggle.addEventListener("click", (e) => {
+        e.preventDefault();
         menu.open();
       });
     });
@@ -54,9 +56,14 @@ const Result = (props) => {
                 const result = [vid1, vid2, vid3, vid4, vid5];
                 return (
                   <div className="item-container" key={episode.id}>
-                    <div className="episode-title">
-                      {episode.number}-р анги {episode.title}
-                    </div>
+                    <Link
+                      to={`/anime/${props.match.params.id}/episode/${episode.id}`}
+                      className="episode-link"
+                    >
+                      <div className="episode-title">
+                        {episode.number}-р анги {episode.title}
+                      </div>
+                    </Link>
                     <div className="episode-action">
                       <div className="mdc-menu-surface--anchor">
                         <button
