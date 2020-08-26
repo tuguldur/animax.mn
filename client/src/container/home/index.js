@@ -2,31 +2,14 @@ import React, { useEffect, useState } from "react";
 import { MDCMenuSurface } from "@material/menu-surface";
 import { MDCRipple } from "@material/ripple";
 import { Link } from "react-router-dom";
-import "./index.scss";
-const Result = (props) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const highlight = urlParams.get("highlight");
+const Home = () => {
   const [search, setSearch] = useState("loading");
-  const options = {
-    method: "GET",
-  };
   useEffect(() => {
     setSearch("loading");
-    var id = props.match.params.id;
-    console.log(id);
-    fetch("/api/proxy/detail/" + id, options)
+    fetch("/api/proxy/latest")
       .then((response) => response.json())
-      .then((data) => {
-        var title = data.title;
-        setSearch({ title });
-        fetch("/api/proxy/episodes/" + id, options)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(search);
-            setSearch({ title, episode: data });
-          });
-      });
-  }, [props.match.params.id]);
+      .then((data) => setSearch({ episode: data }));
+  }, []);
   useEffect(() => {
     const icons = document.querySelectorAll(".mdc-icon-button");
     icons.forEach((icon) => (new MDCRipple(icon).unbounded = true));
@@ -51,26 +34,19 @@ const Result = (props) => {
           </div>
         ) : (
           <div id="main-container">
-            <div className="title overflow-hidden">{search.title}</div>
+            <div className="title overflow-hidden">Latest Episodes</div>
             {search.episode ? (
               search.episode.map((episode) => {
                 const { vid1, vid2, vid3, vid4, vid5 } = episode;
                 const result = [vid1, vid2, vid3, vid4, vid5];
                 return (
-                  <div
-                    className={`${
-                      episode.id === Number(highlight)
-                        ? "item-container active"
-                        : "item-container"
-                    }`}
-                    key={episode.id}
-                  >
+                  <div className="item-container" key={episode.id}>
                     <Link
-                      to={`/anime/${props.match.params.id}/episode/${episode.id}`}
+                      to={`/anime/${episode.anime_id}/episode/${episode.id}`}
                       className="episode-link"
                     >
                       <div className="episode-title">
-                        {episode.number}-р анги {episode.title}
+                        {episode.atitle} • {episode.number}-р анги
                       </div>
                     </Link>
                     <div className="episode-action">
@@ -114,4 +90,4 @@ const Result = (props) => {
     </div>
   );
 };
-export default Result;
+export default Home;

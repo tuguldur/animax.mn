@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { MDCRipple } from "@material/ripple";
+import { MDCMenuSurface } from "@material/menu-surface";
 import { Link } from "react-router-dom";
 import "./style.scss";
 const Episode = (props) => {
   const anime = props.match.url.split("/")[2];
-  const [episode, setEpisode] = useState(null);
+  const [episode, setEpisode] = useState({});
   const [video, setVideo] = useState("");
   useEffect(() => {
     fetch("/api/proxy/detail/" + anime)
@@ -34,11 +35,11 @@ const Episode = (props) => {
   };
   return (
     <div className="list episode">
-      {episode ? (
+      {Object.keys(episode).length ? (
         <div id="main-container">
           <div className="title">
             <Link
-              to={"/anime/" + anime}
+              to={`/anime/${anime}?highlight=${props.match.params.id}`}
               className="mdc-icon-button material-icons header-button"
             >
               arrow_back
@@ -48,20 +49,53 @@ const Episode = (props) => {
                 <span className="anime-title">{episode.title}</span>
                 {episode.video && ` ${episode.video.number} -р анги`}
               </span>
-              {episode.video ? (
+              <div className="mdc-menu-surface--anchor">
                 <div
                   className="mdc-icon-button material-icons header-button video-settings"
                   onClick={() => {
-                    episode.video.vid2 === video
-                      ? setVideo(episode.video.vid1)
-                      : setVideo(episode.video.vid2);
+                    const menuSurface = new MDCMenuSurface(
+                      document.querySelector(".mdc-menu-surface")
+                    );
+                    menuSurface.open();
                   }}
                 >
-                  {episode.video.vid2 === video
-                    ? "signal_wifi_4_bar"
-                    : "signal_cellular_4_bar"}
+                  keyboard_arrow_down
                 </div>
-              ) : null}
+                <div className="mdc-menu-surface">
+                  <div className="mdc-list">
+                    {episode.video
+                      ? Object.entries(
+                          Object.fromEntries(
+                            Object.entries(
+                              episode.video
+                            ).filter(([key, value]) =>
+                              ["vid1", "vid2", "vid3", "vid4", "vid5"].includes(
+                                key
+                              )
+                            )
+                          )
+                        ).map(([key, value], index) => {
+                          if (value) {
+                            return (
+                              <div
+                                className=""
+                                key={index}
+                                onClick={() => setVideo(value)}
+                                className={
+                                  value === video
+                                    ? "mdc-list-item active"
+                                    : "mdc-list-item"
+                                }
+                              >
+                                Video {key}
+                              </div>
+                            );
+                          }
+                        })
+                      : null}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="episode-container">

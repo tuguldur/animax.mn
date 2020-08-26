@@ -1,3 +1,4 @@
 import Result from "./result";
 import Episode from "./episode";
-export { Result, Episode };
+import Home from "./home";
+export { Result, Episode, Home };

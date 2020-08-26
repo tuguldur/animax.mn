@@ -51,7 +51,6 @@
   .title {
     height: 48px;
     line-height: 48px;
-    overflow: hidden;
     padding: 0 20px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -72,7 +71,8 @@
     pointer-events: auto;
     justify-content: space-between;
     padding: 0 20px;
-    &:hover {
+    &:hover,
+    &.active {
       &:last-child {
         border-bottom-right-radius: 4px;
         border-bottom-left-radius: 4px;
@@ -114,6 +114,9 @@
   &:hover,
   &:active,
   &:focus {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  &.active {
     background: rgba(255, 255, 255, 0.15);
   }
 }
