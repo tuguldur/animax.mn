@@ -1,0 +1,36 @@
+/* STYLES SPECIFIC TO FOOTER  */
+.footer {
+  width: 100%;
+  position: relative;
+  height: 56px;
+
+  background-color: #292a2d;
+}
+.footer-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0 16px;
+  padding-left: 20px;
+  line-height: 56px;
+  height: 100%;
+  .footer-item {
+    font-weight: 400;
+    display: inline-block;
+    &:not(:last-child) {
+      &::after {
+        padding: 0 1rem;
+        content: "/";
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

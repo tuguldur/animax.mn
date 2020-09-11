@@ -24,7 +24,7 @@ const Header = () => {
       <div className="left">
         <div className="left-spacer">
           <Link to="/">
-            <h1>Animax Downloader</h1>
+            <h1>Animax - Free</h1>
           </Link>
         </div>
       </div>
