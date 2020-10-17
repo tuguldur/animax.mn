@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import { MDCMenuSurface } from "@material/menu-surface";
 import { MDCRipple } from "@material/ripple";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Home = () => {
   const [search, setSearch] = useState("loading");
   useEffect(() => {
     setSearch("loading");
-    fetch("/api/proxy/latest")
-      .then((response) => response.json())
-      .then((data) => setSearch({ episode: data }));
+    axios
+      .get("https://animax.mn/api/m/latest/anime")
+      .then((response) => setSearch(response.data));
+    // fetch("/api/proxy/latest")
+    //   .then((response) => response.json())
+    //   .then((data) => setSearch({ episode: data }));
   }, []);
   useEffect(() => {
     const icons = document.querySelectorAll(".mdc-icon-button");

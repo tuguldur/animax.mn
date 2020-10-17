@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.20.0",
     "material-components-web": "^7.0.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
